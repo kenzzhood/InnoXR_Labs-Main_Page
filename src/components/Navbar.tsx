@@ -58,11 +58,12 @@ const Navbar = () => {
         ease: "linear",
         delay: 0.1
       }}
-      className={`fixed top-4 left-4 right-4 w-auto z-50 transition-all duration-300 ${
+      className={`fixed top-4 left-4 right-4 w-auto z-[9999] transition-all duration-300 ${
         scrolled
           ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/10 dark:shadow-black/30'
           : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-gray-200/20 dark:border-gray-800/20 shadow-lg shadow-black/5'
       } rounded-2xl`}
+      style={{ zIndex: 9999 }}
     >
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
