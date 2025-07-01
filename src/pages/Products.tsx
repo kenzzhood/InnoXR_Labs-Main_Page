@@ -72,15 +72,29 @@ const Products = () => {
             </motion.div>
           </div>
 
-          {/* Product Display */}
-          <motion.div
-            key={activeProduct}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "linear" }}
-          >
-            {activeProduct === 'diy' ? <DIYProductSection /> : <EnterpriseProductSection />}
-          </motion.div>
+          {/* Product Display - Fixed Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+            {/* Product Information - Changes based on activeProduct */}
+            <motion.div
+              key={activeProduct}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "linear" }}
+              className="space-y-8"
+            >
+              {activeProduct === 'diy' ? <DIYProductInfo /> : <EnterpriseProductInfo />}
+            </motion.div>
+
+            {/* HologramViewer - Always mounted, just changes type */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
+              className="relative"
+            >
+              <HologramViewer type={activeProduct} className="w-full" />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -225,169 +239,137 @@ const Products = () => {
   );
 };
 
-const DIYProductSection = () => (
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
-    <motion.div
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, ease: "linear" }}
-      className="space-y-8"
-    >
-      <div>
-        <Badge className="mb-8 bg-amber-100/80 dark:bg-amber-900/20 backdrop-blur-sm text-amber-700 dark:text-amber-400 border-0 px-4 py-2 rounded-full text-sm font-medium">
-          Perfect for Education
-        </Badge>
-        <h2 className="text-4xl sm:text-5xl font-extralight mb-8 tracking-tight">
-          HoloInteract <span className="font-light">DIY Edition</span>
-        </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-10">
-          Build your own holographic display in just <CountUp to={30} duration={1.5} className="font-medium text-amber-600 dark:text-amber-400" /> minutes and explore the fascinating world of 
-          3D projections and AI interaction.
-        </p>
-      </div>
+const DIYProductInfo = () => (
+  <div className="space-y-8">
+    <div>
+      <Badge className="mb-8 bg-amber-100/80 dark:bg-amber-900/20 backdrop-blur-sm text-amber-700 dark:text-amber-400 border-0 px-4 py-2 rounded-full text-sm font-medium">
+        Perfect for Education
+      </Badge>
+      <h2 className="text-4xl sm:text-5xl font-extralight mb-8 tracking-tight">
+        HoloInteract <span className="font-light">DIY Edition</span>
+      </h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-10">
+        Build your own holographic display in just <CountUp to={30} duration={1.5} className="font-medium text-amber-600 dark:text-amber-400" /> minutes and explore the fascinating world of 
+        3D projections and AI interaction.
+      </p>
+    </div>
 
-      <div className="grid grid-cols-2 gap-8">
-        <div className="text-center">
-          <div className="text-4xl font-extralight mb-2">
-            $<CountUp to={49} duration={2} className="font-medium" />
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-500">Starting Price</div>
+    <div className="grid grid-cols-2 gap-8">
+      <div className="text-center">
+        <div className="text-4xl font-extralight mb-2">
+          $<CountUp to={49} duration={2} className="font-medium" />
         </div>
-        <div className="text-center">
-          <div className="text-4xl font-extralight mb-2">
-            <CountUp to={30} duration={1.5} className="font-medium" />min
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-500">Assembly Time</div>
+        <div className="text-sm text-gray-500 dark:text-gray-500">Starting Price</div>
+      </div>
+      <div className="text-center">
+        <div className="text-4xl font-extralight mb-2">
+          <CountUp to={30} duration={1.5} className="font-medium" />min
         </div>
+        <div className="text-sm text-gray-500 dark:text-gray-500">Assembly Time</div>
       </div>
+    </div>
 
-      <div className="space-y-6">
-        <h3 className="text-xl font-medium">What's Included:</h3>
-        <div className="grid grid-cols-1 gap-4">
-          {[
-            'Precision-cut cardboard frame',
-            'Assembly instructions & QR codes',
-            'Educational content library',
-            'Gesture control software',
-            'Voice AI integration',
-            'Mobile app companion'
-          ].map((item, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05, ease: "linear" }}
-              className="flex items-center space-x-3"
-            >
-              <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-              <span className="text-gray-600 dark:text-gray-400">{item}</span>
-            </motion.div>
-          ))}
-        </div>
+    <div className="space-y-6">
+      <h3 className="text-xl font-medium">What's Included:</h3>
+      <div className="grid grid-cols-1 gap-4">
+        {[
+          'Precision-cut cardboard frame',
+          'Assembly instructions & QR codes',
+          'Educational content library',
+          'Gesture control software',
+          'Voice AI integration',
+          'Mobile app companion'
+        ].map((item, index) => (
+          <motion.div 
+            key={index}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.05, ease: "linear" }}
+            className="flex items-center space-x-3"
+          >
+            <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+            <span className="text-gray-600 dark:text-gray-400">{item}</span>
+          </motion.div>
+        ))}
       </div>
+    </div>
 
-      <div className="flex gap-4 pt-6">
-        <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
-          Order DIY Kit
-        </Button>
-        <Button variant="outline" className="border-gray-300 dark:border-gray-700 px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
-          <Download className="w-4 h-4 mr-2" />
-          Download Plans
-        </Button>
-      </div>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
-      className="relative"
-    >
-      <HologramViewer type="diy" className="w-full" />
-    </motion.div>
+    <div className="flex gap-4 pt-6">
+      <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
+        Order DIY Kit
+      </Button>
+      <Button variant="outline" className="border-gray-300 dark:border-gray-700 px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
+        <Download className="w-4 h-4 mr-2" />
+        Download Plans
+      </Button>
+    </div>
   </div>
 );
 
-const EnterpriseProductSection = () => (
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
-    <motion.div
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, ease: "linear" }}
-      className="space-y-8"
-    >
-      <div>
-        <Badge className="mb-8 bg-blue-100/80 dark:bg-blue-900/20 backdrop-blur-sm text-blue-700 dark:text-blue-400 border-0 px-4 py-2 rounded-full text-sm font-medium">
-          Professional Grade
-        </Badge>
-        <h2 className="text-4xl sm:text-5xl font-extralight mb-8 tracking-tight">
-          HoloInteract <span className="font-light">Enterprise</span>
-        </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-10">
-          A premium holographic system designed for businesses, museums, exhibitions, and professional 
-          presentations. Featuring high-quality acrylic construction, advanced AI integration, and 
-          enterprise-grade customization capabilities.
-        </p>
-      </div>
+const EnterpriseProductInfo = () => (
+  <div className="space-y-8">
+    <div>
+      <Badge className="mb-8 bg-blue-100/80 dark:bg-blue-900/20 backdrop-blur-sm text-blue-700 dark:text-blue-400 border-0 px-4 py-2 rounded-full text-sm font-medium">
+        Professional Grade
+      </Badge>
+      <h2 className="text-4xl sm:text-5xl font-extralight mb-8 tracking-tight">
+        HoloInteract <span className="font-light">Enterprise</span>
+      </h2>
+      <p className="text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-10">
+        A premium holographic system designed for businesses, museums, exhibitions, and professional 
+        presentations. Featuring high-quality acrylic construction, advanced AI integration, and 
+        enterprise-grade customization capabilities.
+      </p>
+    </div>
 
-      <div className="grid grid-cols-2 gap-8">
-        <div className="text-center">
-          <div className="text-4xl font-extralight mb-2">
-            $<CountUp to={499} duration={2.5} className="font-medium" />
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-500">Starting Price</div>
+    <div className="grid grid-cols-2 gap-8">
+      <div className="text-center">
+        <div className="text-4xl font-extralight mb-2">
+          $<CountUp to={499} duration={2.5} className="font-medium" />
         </div>
-        <div className="text-center">
-          <div className="text-4xl font-extralight mb-2">
-            <CountUp to={4} duration={1} className="font-medium" />K
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-500">Display Support</div>
+        <div className="text-sm text-gray-500 dark:text-gray-500">Starting Price</div>
+      </div>
+      <div className="text-center">
+        <div className="text-4xl font-extralight mb-2">
+          <CountUp to={4} duration={1} className="font-medium" />K
         </div>
+        <div className="text-sm text-gray-500 dark:text-gray-500">Display Support</div>
       </div>
+    </div>
 
-      <div className="space-y-6">
-        <h3 className="text-xl font-medium">Enterprise Features:</h3>
-        <div className="grid grid-cols-1 gap-4">
-          {[
-            'Premium acrylic construction',
-            'Advanced LLaMA 3.2 AI',
-            'Custom content management',
-            'Enterprise security',
-            'Multi-user support',
-            'Professional installation'
-          ].map((item, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05, ease: "linear" }}
-              className="flex items-center space-x-3"
-            >
-              <Star className="w-5 h-5 text-blue-600 flex-shrink-0" />
-              <span className="text-gray-600 dark:text-gray-400">{item}</span>
-            </motion.div>
-          ))}
-        </div>
+    <div className="space-y-6">
+      <h3 className="text-xl font-medium">Enterprise Features:</h3>
+      <div className="grid grid-cols-1 gap-4">
+        {[
+          'Premium acrylic construction',
+          'Advanced LLaMA 3.2 AI',
+          'Custom content management',
+          'Enterprise security',
+          'Multi-user support',
+          'Professional installation'
+        ].map((item, index) => (
+          <motion.div 
+            key={index}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.05, ease: "linear" }}
+            className="flex items-center space-x-3"
+          >
+            <Star className="w-5 h-5 text-blue-600 flex-shrink-0" />
+            <span className="text-gray-600 dark:text-gray-400">{item}</span>
+          </motion.div>
+        ))}
       </div>
+    </div>
 
-      <div className="flex gap-4 pt-6">
-        <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
-          Request Quote
-        </Button>
-        <Button variant="outline" className="border-gray-300 dark:border-gray-700 px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
-          Schedule Demo
-        </Button>
-      </div>
-    </motion.div>
-
-    <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
-      className="relative"
-    >
-      <HologramViewer type="enterprise" className="w-full" />
-    </motion.div>
+    <div className="flex gap-4 pt-6">
+      <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
+        Request Quote
+      </Button>
+      <Button variant="outline" className="border-gray-300 dark:border-gray-700 px-8 py-4 rounded-full font-medium transition-all duration-200 hover:scale-105">
+        Schedule Demo
+      </Button>
+    </div>
   </div>
 );
 
