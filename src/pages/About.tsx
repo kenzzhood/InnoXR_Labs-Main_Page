@@ -3,6 +3,7 @@ import { Users, Target, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { BackgroundGradient } from '@/components/ui/background-gradient';
 import CountUp from '@/components/ui/count-up';
 
 const About = () => {
@@ -93,7 +94,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Vision & Mission */}
+      {/* Vision & Mission with BackgroundGradient */}
       <section className="py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
@@ -103,26 +104,26 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "linear" }}
             >
-              <Card className="h-full border-0 shadow-none bg-gradient-to-br from-blue-50/80 to-purple-50/80 dark:from-blue-900/10 dark:to-purple-900/10 backdrop-blur-sm rounded-3xl overflow-hidden">
-                <CardHeader className="p-12">
-                  <CardTitle className="flex items-center space-x-4 text-3xl font-light">
+              <BackgroundGradient className="rounded-[22px] p-1">
+                <div className="bg-white dark:bg-gray-900 rounded-[18px] p-8 sm:p-12 h-full">
+                  <div className="flex items-center space-x-4 mb-8">
                     <Target className="w-8 h-8 text-blue-500" />
-                    <span>Our Mission</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-12 pb-12 space-y-6">
-                  <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
-                    To democratize holographic technology and make it accessible to educators, students, 
-                    and businesses worldwide. We believe that everyone should have the opportunity to 
-                    experience and create with cutting-edge immersive technology.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
-                    Through our DIY and Enterprise solutions, we're breaking down the barriers that 
-                    have traditionally kept holographic technology in the realm of science fiction, 
-                    making it a practical tool for education and business.
-                  </p>
-                </CardContent>
-              </Card>
+                    <h3 className="text-3xl font-light">Our Mission</h3>
+                  </div>
+                  <div className="space-y-6">
+                    <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
+                      To democratize holographic technology and make it accessible to educators, students, 
+                      and businesses worldwide. We believe that everyone should have the opportunity to 
+                      experience and create with cutting-edge immersive technology.
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
+                      Through our DIY and Enterprise solutions, we're breaking down the barriers that 
+                      have traditionally kept holographic technology in the realm of science fiction, 
+                      making it a practical tool for education and business.
+                    </p>
+                  </div>
+                </div>
+              </BackgroundGradient>
             </motion.div>
 
             <motion.div
@@ -131,26 +132,26 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
             >
-              <Card className="h-full border-0 shadow-none bg-gradient-to-br from-purple-50/80 to-cyan-50/80 dark:from-purple-900/10 dark:to-cyan-900/10 backdrop-blur-sm rounded-3xl overflow-hidden">
-                <CardHeader className="p-12">
-                  <CardTitle className="flex items-center space-x-4 text-3xl font-light">
+              <BackgroundGradient className="rounded-[22px] p-1">
+                <div className="bg-white dark:bg-gray-900 rounded-[18px] p-8 sm:p-12 h-full">
+                  <div className="flex items-center space-x-4 mb-8">
                     <Lightbulb className="w-8 h-8 text-purple-500" />
-                    <span>Our Vision</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="px-12 pb-12 space-y-6">
-                  <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
-                    A world where holographic technology is as common as smartphones, where students 
-                    learn through immersive 3D experiences, and where businesses engage customers 
-                    through magical holographic presentations.
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
-                    We envision classrooms filled with floating 3D models, museums where history 
-                    comes alive through holograms, and boardrooms where ideas are presented in 
-                    stunning holographic detail.
-                  </p>
-                </CardContent>
-              </Card>
+                    <h3 className="text-3xl font-light">Our Vision</h3>
+                  </div>
+                  <div className="space-y-6">
+                    <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
+                      A world where holographic technology is as common as smartphones, where students 
+                      learn through immersive 3D experiences, and where businesses engage customers 
+                      through magical holographic presentations.
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 font-light leading-relaxed text-lg">
+                      We envision classrooms filled with floating 3D models, museums where history 
+                      comes alive through holograms, and boardrooms where ideas are presented in 
+                      stunning holographic detail.
+                    </p>
+                  </div>
+                </div>
+              </BackgroundGradient>
             </motion.div>
           </div>
         </div>
