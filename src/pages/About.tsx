@@ -104,8 +104,8 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "linear" }}
             >
-              <BackgroundGradient className="rounded-[22px] p-1">
-                <div className="bg-white dark:bg-gray-900 rounded-[18px] p-8 sm:p-12 h-full">
+              <BackgroundGradient className="rounded-[22px]">
+                <div className="bg-white dark:bg-gray-900 rounded-[21px] p-8 sm:p-12 h-full">
                   <div className="flex items-center space-x-4 mb-8">
                     <Target className="w-8 h-8 text-blue-500" />
                     <h3 className="text-3xl font-light">Our Mission</h3>
@@ -132,8 +132,8 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
             >
-              <BackgroundGradient className="rounded-[22px] p-1">
-                <div className="bg-white dark:bg-gray-900 rounded-[18px] p-8 sm:p-12 h-full">
+              <BackgroundGradient className="rounded-[22px]">
+                <div className="bg-white dark:bg-gray-900 rounded-[21px] p-8 sm:p-12 h-full">
                   <div className="flex items-center space-x-4 mb-8">
                     <Lightbulb className="w-8 h-8 text-purple-500" />
                     <h3 className="text-3xl font-light">Our Vision</h3>
