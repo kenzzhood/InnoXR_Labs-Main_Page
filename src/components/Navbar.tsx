@@ -22,6 +22,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -85,12 +92,66 @@ const Navbar = () => {
             </button>
           </motion.div>
 
-          {/* Desktop Navigation with Advanced Menu */}
-          <div className="hidden lg:flex items-center justify-center">
+          {/* Desktop Navigation - Hybrid Approach */}
+          <div className="hidden lg:flex items-center justify-center space-x-10">
+            {/* Home - Simple Link */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2, ease: "linear" }}
+              transition={{
+                duration: 0.4,
+                delay: 0.2,
+                ease: "linear"
+              }}
+              className="relative"
+            >
+              <button
+                onClick={() => handleNavClick('/')}
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
+                  location.pathname === '/'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
+                }`}
+              >
+                Home
+
+                {/* Enhanced underline animation */}
+                {location.pathname === '/' ? (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      ease: "linear"
+                    }}
+                  />
+                ) : (
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-60"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{
+                      scaleX: 1,
+                      transition: {
+                        duration: 0.2,
+                        ease: "linear"
+                      }
+                    }}
+                  />
+                )}
+              </button>
+            </motion.div>
+
+            {/* Products - Enhanced Dropdown */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: 0.25,
+                ease: "linear"
+              }}
             >
               <NavMenu setActive={setActive}>
                 <MenuItem setActive={setActive} active={active} item="Products">
@@ -121,34 +182,78 @@ const Navbar = () => {
                     />
                   </div>
                 </MenuItem>
-                
-                <MenuItem setActive={setActive} active={active} item="Solutions">
-                  <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
-                    <HoveredLink href="/products">Education Technology</HoveredLink>
-                    <HoveredLink href="/products">Business Presentations</HoveredLink>
-                    <HoveredLink href="/products">Museum Exhibitions</HoveredLink>
-                    <HoveredLink href="/products">Custom Development</HoveredLink>
-                  </div>
-                </MenuItem>
+              </NavMenu>
+            </motion.div>
 
-                <MenuItem setActive={setActive} active={active} item="Company">
+            {/* About - Enhanced Dropdown */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: 0.3,
+                ease: "linear"
+              }}
+            >
+              <NavMenu setActive={setActive}>
+                <MenuItem setActive={setActive} active={active} item="About">
                   <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
-                    <HoveredLink href="/about">About InnoXR Labs</HoveredLink>
-                    <HoveredLink href="/about">Our Mission</HoveredLink>
+                    <HoveredLink href="/about">Our Story</HoveredLink>
+                    <HoveredLink href="/about">Mission & Vision</HoveredLink>
+                    <HoveredLink href="/about">Our Impact</HoveredLink>
                     <HoveredLink href="/contact">Careers</HoveredLink>
-                    <HoveredLink href="/contact">Press & Media</HoveredLink>
-                  </div>
-                </MenuItem>
-
-                <MenuItem setActive={setActive} active={active} item="Support">
-                  <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
-                    <HoveredLink href="/contact">Contact Support</HoveredLink>
-                    <HoveredLink href="/contact">Documentation</HoveredLink>
-                    <HoveredLink href="/contact">Community Forum</HoveredLink>
-                    <HoveredLink href="/contact">Training Resources</HoveredLink>
                   </div>
                 </MenuItem>
               </NavMenu>
+            </motion.div>
+
+            {/* Contact - Simple Link */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: 0.35,
+                ease: "linear"
+              }}
+              className="relative"
+            >
+              <button
+                onClick={() => handleNavClick('/contact')}
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
+                  location.pathname === '/contact'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
+                }`}
+              >
+                Contact
+
+                {/* Enhanced underline animation */}
+                {location.pathname === '/contact' ? (
+                  <motion.div
+                    layoutId="navbar-underline-contact"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={{ scaleX: 1, opacity: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      ease: "linear"
+                    }}
+                  />
+                ) : (
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-60"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{
+                      scaleX: 1,
+                      transition: {
+                        duration: 0.2,
+                        ease: "linear"
+                      }
+                    }}
+                  />
+                )}
+              </button>
             </motion.div>
           </div>
 
@@ -193,7 +298,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Original Functionality */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -207,11 +312,7 @@ const Navbar = () => {
               className="lg:hidden overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-gray-200/20 dark:border-gray-800/20"
             >
               <div className="px-4 py-6 space-y-3">
-                {[
-                  { name: 'Products', path: '/products' },
-                  { name: 'About', path: '/about' },
-                  { name: 'Contact', path: '/contact' }
-                ].map((item, index) => (
+                {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: -10 }}
