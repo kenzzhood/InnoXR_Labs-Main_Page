@@ -58,14 +58,14 @@ const Navbar = () => {
         ease: "linear",
         delay: 0.1
       }}
-      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-4 left-4 right-4 w-auto z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl border-b border-gray-200/20 dark:border-gray-800/20 shadow-lg'
-          : 'bg-white/5 dark:bg-black/5 backdrop-blur-md border-b border-gray-200/10 dark:border-gray-800/10'
-      }`}
+          ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl border border-gray-200/30 dark:border-gray-800/30 shadow-2xl shadow-black/10 dark:shadow-black/30'
+          : 'bg-white/10 dark:bg-black/10 backdrop-blur-md border border-gray-200/20 dark:border-gray-800/20 shadow-lg shadow-black/5'
+      } rounded-2xl`}
     >
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -76,21 +76,21 @@ const Navbar = () => {
               onClick={() => handleNavClick('/')}
               className="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-xl p-2"
             >
-              <div className="w-10 h-10 flex items-center justify-center">
+              <div className="w-8 h-8 flex items-center justify-center">
                 <img 
                   src={logo}
                   alt="InnoXR Labs" 
-                  className="w-10 h-10 object-contain filter drop-shadow-sm"
+                  className="w-8 h-8 object-contain filter drop-shadow-sm"
                 />
               </div>
-              <span className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+              <span className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                 InnoXR Labs
               </span>
             </button>
           </motion.div>
 
           {/* Desktop Navigation and Right Side Actions */}
-          <div className="hidden lg:flex items-center justify-center space-x-10">
+          <div className="hidden lg:flex items-center justify-center space-x-8">
             {navItems.map((item, index) => (
               <motion.div
                 key={item.name}
@@ -105,7 +105,7 @@ const Navbar = () => {
               >
                 <button
                   onClick={() => handleNavClick(item.path)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
                     location.pathname === item.path
                       ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
@@ -154,7 +154,7 @@ const Navbar = () => {
             >
               <Button
                 size="sm"
-                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-6 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 hover:shadow-lg border-0"
+                className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-5 py-2 text-sm font-medium rounded-xl transition-all duration-200 hover:shadow-lg border-0"
                 onClick={handleDemoClick}
               >
                 Request Demo
@@ -171,7 +171,7 @@ const Navbar = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 p-2.5 rounded-xl"
+                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 p-2 rounded-xl"
               >
                 <motion.div
                   animate={{ rotate: isOpen ? 90 : 0 }}
@@ -195,9 +195,9 @@ const Navbar = () => {
                 duration: 0.3, 
                 ease: "linear"
               }}
-              className="lg:hidden overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-gray-200/20 dark:border-gray-800/20"
+              className="lg:hidden overflow-hidden border-t border-gray-200/20 dark:border-gray-800/20 mt-4"
             >
-              <div className="px-4 py-6 space-y-3">
+              <div className="px-2 py-6 space-y-3">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.name}
