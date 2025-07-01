@@ -12,33 +12,33 @@ export const Meteors = ({
 }) => {
   const meteors = new Array(number || 20).fill(true);
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {meteors.map((el, idx) => {
         const meteorCount = number || 20;
-        // Random horizontal position across the container width
-        const leftPosition = Math.random() * 100; // 0-100%
-        // Random animation delay and duration
-        const animationDelay = Math.random() * 8; // 0-8 seconds
-        const animationDuration = 3 + Math.random() * 4; // 3-7 seconds
+        // Calculate position to evenly distribute meteors across container width
+        const position = idx * (100 / meteorCount); // Spread across 100% width
 
         return (
           <span
             key={"meteor" + idx}
             className={cn(
-              "absolute h-1 w-1 rounded-full bg-white/90 shadow-[0_0_8px_2px_rgba(255,255,255,0.3)]",
+              "animate-meteor-effect absolute h-0.5 w-0.5 rotate-[215deg] rounded-[9999px] bg-white/90 shadow-[0_0_8px_2px_rgba(255,255,255,0.3)]",
               "before:absolute before:top-1/2 before:h-[1px] before:w-[60px] before:-translate-y-[50%] before:transform before:bg-gradient-to-r before:from-white/80 before:to-transparent before:content-['']",
-              "animate-meteor-effect",
               className,
             )}
             style={{
-              top: "-10px", // Start just above the container
-              left: leftPosition + "%",
-              animationDelay: animationDelay + "s",
-              animationDuration: animationDuration + "s",
+              top: "-20px", // Start above the container
+              left: position + "%",
+              animationDelay: Math.random() * 8 + "s", // Random delay between 0-8s
+              animationDuration: Math.floor(Math.random() * (7 - 3) + 3) + "s", // Duration between 3-7s
             }}
           ></span>
         );
       })}
-    </div>
+    </motion.div>
   );
 };

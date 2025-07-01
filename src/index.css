@@ -272,10 +272,10 @@ img, video {
   contain: layout style paint;
 }
 
-/* Meteor animation - Fixed to go from top to bottom */
+/* Meteor animation - Fixed angle for natural diagonal movement */
 @keyframes meteor-effect {
   0% {
-    transform: translateX(0) translateY(0);
+    transform: translateX(0) translateY(0) rotate(215deg);
     opacity: 0;
   }
   10% {
@@ -285,7 +285,7 @@ img, video {
     opacity: 1;
   }
   100% {
-    transform: translateX(200px) translateY(400px);
+    transform: translateX(300px) translateY(300px) rotate(215deg);
     opacity: 0;
   }
 }
