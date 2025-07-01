@@ -3,11 +3,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Menu as NavMenu, MenuItem, HoveredLink, ProductItem } from '@/components/ui/navbar-menu';
+import { cn } from '@/lib/utils';
 import logo from '../assets/Colorful Modern Infinity Technology Free Logo (3).png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,13 +21,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Products', path: '/products' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-  ];
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -89,58 +85,71 @@ const Navbar = () => {
             </button>
           </motion.div>
 
-          {/* Desktop Navigation and Right Side Actions */}
-          <div className="hidden lg:flex items-center justify-center space-x-10">
-            {navItems.map((item, index) => (
-              <motion.div
-                key={item.name}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.2 + index * 0.05,
-                  ease: "linear"
-                }}
-                className="relative"
-              >
-                <button
-                  onClick={() => handleNavClick(item.path)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
-                    location.pathname === item.path
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
-                  }`}
-                >
-                  {item.name}
+          {/* Desktop Navigation with Advanced Menu */}
+          <div className="hidden lg:flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "linear" }}
+            >
+              <NavMenu setActive={setActive}>
+                <MenuItem setActive={setActive} active={active} item="Products">
+                  <div className="text-sm grid grid-cols-2 gap-6 p-4 min-w-[500px]">
+                    <ProductItem
+                      title="HoloInteract DIY"
+                      href="/products"
+                      src="https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg?auto=compress&cs=tinysrgb&w=400"
+                      description="Build your own holographic display in 30 minutes. Perfect for education and makers."
+                    />
+                    <ProductItem
+                      title="HoloInteract Enterprise"
+                      href="/products"
+                      src="https://images.pexels.com/photos/8439093/pexels-photo-8439093.jpeg?auto=compress&cs=tinysrgb&w=400"
+                      description="Premium holographic system for businesses, museums, and professional presentations."
+                    />
+                    <ProductItem
+                      title="AR Building Visualizer"
+                      href="/products"
+                      src="https://images.pexels.com/photos/8566470/pexels-photo-8566470.jpeg?auto=compress&cs=tinysrgb&w=400"
+                      description="Immersive 3D visualization for real estate and architecture using AR technology."
+                    />
+                    <ProductItem
+                      title="VR Education Platform"
+                      href="/products"
+                      src="https://images.pexels.com/photos/8439093/pexels-photo-8439093.jpeg?auto=compress&cs=tinysrgb&w=400"
+                      description="Virtual classrooms and labs for immersive educational experiences."
+                    />
+                  </div>
+                </MenuItem>
+                
+                <MenuItem setActive={setActive} active={active} item="Solutions">
+                  <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
+                    <HoveredLink href="/products">Education Technology</HoveredLink>
+                    <HoveredLink href="/products">Business Presentations</HoveredLink>
+                    <HoveredLink href="/products">Museum Exhibitions</HoveredLink>
+                    <HoveredLink href="/products">Custom Development</HoveredLink>
+                  </div>
+                </MenuItem>
 
-                  {/* Enhanced underline animation */}
-                  {location.pathname === item.path ? (
-                    <motion.div
-                      layoutId="navbar-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
-                      initial={{ scaleX: 0, opacity: 0 }}
-                      animate={{ scaleX: 1, opacity: 1 }}
-                      transition={{
-                        duration: 0.4,
-                        ease: "linear"
-                      }}
-                    />
-                  ) : (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-60"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{
-                        scaleX: 1,
-                        transition: {
-                          duration: 0.2,
-                          ease: "linear"
-                        }
-                      }}
-                    />
-                  )}
-                </button>
-              </motion.div>
-            ))}
+                <MenuItem setActive={setActive} active={active} item="Company">
+                  <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
+                    <HoveredLink href="/about">About InnoXR Labs</HoveredLink>
+                    <HoveredLink href="/about">Our Mission</HoveredLink>
+                    <HoveredLink href="/contact">Careers</HoveredLink>
+                    <HoveredLink href="/contact">Press & Media</HoveredLink>
+                  </div>
+                </MenuItem>
+
+                <MenuItem setActive={setActive} active={active} item="Support">
+                  <div className="flex flex-col space-y-4 text-sm min-w-[200px]">
+                    <HoveredLink href="/contact">Contact Support</HoveredLink>
+                    <HoveredLink href="/contact">Documentation</HoveredLink>
+                    <HoveredLink href="/contact">Community Forum</HoveredLink>
+                    <HoveredLink href="/contact">Training Resources</HoveredLink>
+                  </div>
+                </MenuItem>
+              </NavMenu>
+            </motion.div>
           </div>
 
           {/* Request Demo Button */}
@@ -198,7 +207,11 @@ const Navbar = () => {
               className="lg:hidden overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-gray-200/20 dark:border-gray-800/20"
             >
               <div className="px-4 py-6 space-y-3">
-                {navItems.map((item, index) => (
+                {[
+                  { name: 'Products', path: '/products' },
+                  { name: 'About', path: '/about' },
+                  { name: 'Contact', path: '/contact' }
+                ].map((item, index) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: -10 }}
