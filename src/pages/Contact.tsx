@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { Meteors } from '@/components/ui/meteors';
 import { toast } from 'sonner';
 
 const Contact = () => {
@@ -142,7 +143,7 @@ const Contact = () => {
               </div>
             </motion.div>
 
-            {/* Contact Form */}
+            {/* Contact Form with Meteors Effect */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -150,117 +151,125 @@ const Contact = () => {
               transition={{ duration: 0.6, delay: 0.1, ease: "linear" }}
               className="lg:col-span-2"
             >
-              <Card className="border-0 shadow-none bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-3xl overflow-hidden">
-                <CardHeader className="p-12">
-                  <CardTitle className="text-3xl font-light">Send us a Message</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400 font-light text-lg">
-                    Fill out the form below and we'll get back to you as soon as possible.
-                  </p>
-                </CardHeader>
-                <CardContent className="px-12 pb-12">
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="relative">
+                {/* Background gradient blur effect */}
+                <div className="absolute inset-0 h-full w-full scale-[0.80] transform rounded-3xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl" />
+                
+                <Card className="relative border border-gray-200/50 dark:border-gray-800/50 shadow-xl bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-3xl overflow-hidden">
+                  <CardHeader className="p-12 relative">
+                    <CardTitle className="text-3xl font-light text-gray-900 dark:text-white">Send us a Message</CardTitle>
+                    <p className="text-gray-600 dark:text-gray-400 font-light text-lg">
+                      Fill out the form below and we'll get back to you as soon as possible.
+                    </p>
+                  </CardHeader>
+                  <CardContent className="px-12 pb-12 relative">
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-3">
+                          <Label htmlFor="name" className="text-sm font-medium">Full Name *</Label>
+                          <Input
+                            id="name"
+                            placeholder="Your full name"
+                            value={formData.name}
+                            onChange={(e) => handleChange('name', e.target.value)}
+                            required
+                            className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <Label htmlFor="email" className="text-sm font-medium">Email Address *</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="your@email.com"
+                            value={formData.email}
+                            onChange={(e) => handleChange('email', e.target.value)}
+                            required
+                            className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-3">
+                          <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
+                          <Input
+                            id="phone"
+                            placeholder="+91 12345 67890"
+                            value={formData.phone}
+                            onChange={(e) => handleChange('phone', e.target.value)}
+                            className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
+                          />
+                        </div>
+                        <div className="space-y-3">
+                          <Label htmlFor="organization" className="text-sm font-medium">Organization</Label>
+                          <Input
+                            id="organization"
+                            placeholder="School, Company, etc."
+                            value={formData.organization}
+                            onChange={(e) => handleChange('organization', e.target.value)}
+                            className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+
                       <div className="space-y-3">
-                        <Label htmlFor="name" className="text-sm font-medium">Full Name *</Label>
+                        <Label htmlFor="inquiry_type" className="text-sm font-medium">Inquiry Type *</Label>
+                        <Select onValueChange={(value) => handleChange('inquiry_type', value)}>
+                          <SelectTrigger className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                            <SelectValue placeholder="Select inquiry type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="diy">DIY Edition Inquiry</SelectItem>
+                            <SelectItem value="enterprise">Enterprise Solution</SelectItem>
+                            <SelectItem value="demo">Demo Request</SelectItem>
+                            <SelectItem value="partnership">Partnership</SelectItem>
+                            <SelectItem value="support">Technical Support</SelectItem>
+                            <SelectItem value="media">Media Inquiry</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-3">
+                        <Label htmlFor="subject" className="text-sm font-medium">Subject *</Label>
                         <Input
-                          id="name"
-                          placeholder="Your full name"
-                          value={formData.name}
-                          onChange={(e) => handleChange('name', e.target.value)}
+                          id="subject"
+                          placeholder="Brief subject of your inquiry"
+                          value={formData.subject}
+                          onChange={(e) => handleChange('subject', e.target.value)}
                           required
-                          className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg"
+                          className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
                         />
                       </div>
+
                       <div className="space-y-3">
-                        <Label htmlFor="email" className="text-sm font-medium">Email Address *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="your@email.com"
-                          value={formData.email}
-                          onChange={(e) => handleChange('email', e.target.value)}
+                        <Label htmlFor="message" className="text-sm font-medium">Message *</Label>
+                        <Textarea
+                          id="message"
+                          placeholder="Tell us more about your project, requirements, or questions..."
+                          rows={6}
+                          value={formData.message}
+                          onChange={(e) => handleChange('message', e.target.value)}
                           required
-                          className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg"
+                          className="border-gray-300 dark:border-gray-700 rounded-xl text-lg bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm"
                         />
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-3">
-                        <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
-                        <Input
-                          id="phone"
-                          placeholder="+91 12345 67890"
-                          value={formData.phone}
-                          onChange={(e) => handleChange('phone', e.target.value)}
-                          className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label htmlFor="organization" className="text-sm font-medium">Organization</Label>
-                        <Input
-                          id="organization"
-                          placeholder="School, Company, etc."
-                          value={formData.organization}
-                          onChange={(e) => handleChange('organization', e.target.value)}
-                          className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <Label htmlFor="inquiry_type" className="text-sm font-medium">Inquiry Type *</Label>
-                      <Select onValueChange={(value) => handleChange('inquiry_type', value)}>
-                        <SelectTrigger className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg">
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="diy">DIY Edition Inquiry</SelectItem>
-                          <SelectItem value="enterprise">Enterprise Solution</SelectItem>
-                          <SelectItem value="demo">Demo Request</SelectItem>
-                          <SelectItem value="partnership">Partnership</SelectItem>
-                          <SelectItem value="support">Technical Support</SelectItem>
-                          <SelectItem value="media">Media Inquiry</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="space-y-3">
-                      <Label htmlFor="subject" className="text-sm font-medium">Subject *</Label>
-                      <Input
-                        id="subject"
-                        placeholder="Brief subject of your inquiry"
-                        value={formData.subject}
-                        onChange={(e) => handleChange('subject', e.target.value)}
-                        required
-                        className="border-gray-300 dark:border-gray-700 rounded-xl py-4 text-lg"
-                      />
-                    </div>
-
-                    <div className="space-y-3">
-                      <Label htmlFor="message" className="text-sm font-medium">Message *</Label>
-                      <Textarea
-                        id="message"
-                        placeholder="Tell us more about your project, requirements, or questions..."
-                        rows={6}
-                        value={formData.message}
-                        onChange={(e) => handleChange('message', e.target.value)}
-                        required
-                        className="border-gray-300 dark:border-gray-700 rounded-xl text-lg"
-                      />
-                    </div>
-
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg font-medium rounded-full transition-all duration-200 hover:scale-105"
-                    >
-                      <Send className="w-5 h-5 mr-2" />
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+                      <Button 
+                        type="submit" 
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 text-lg font-medium rounded-full transition-all duration-200 hover:scale-105 relative z-10"
+                      >
+                        <Send className="w-5 h-5 mr-2" />
+                        Send Message
+                      </Button>
+                    </form>
+                  </CardContent>
+                  
+                  {/* Meteors Effect */}
+                  <Meteors number={15} />
+                </Card>
+              </div>
             </motion.div>
           </div>
         </div>
