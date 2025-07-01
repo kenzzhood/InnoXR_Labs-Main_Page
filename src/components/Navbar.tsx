@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import logo from '../assets/Colorful Modern Infinity Technology Free Logo (3).png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,6 +18,13 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'Products', path: '/products' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -33,7 +38,6 @@ const Navbar = () => {
       navigate(path);
     }
     setIsOpen(false);
-    setActiveDropdown(null);
   };
 
   const handleDemoClick = () => {
@@ -44,69 +48,6 @@ const Navbar = () => {
     }
     setIsOpen(false);
   };
-
-  const productItems = [
-    {
-      title: "HoloInteract DIY",
-      description: "Build your own holographic display in 30 minutes",
-      price: "$49",
-      path: "/products",
-      category: "Education"
-    },
-    {
-      title: "HoloInteract Enterprise",
-      description: "Premium holographic system for businesses",
-      price: "$499",
-      path: "/products",
-      category: "Business"
-    }
-  ];
-
-  const solutionItems = [
-    {
-      title: "Education",
-      description: "Interactive learning with holographic displays",
-      path: "/products"
-    },
-    {
-      title: "Business",
-      description: "Professional presentations and exhibitions",
-      path: "/products"
-    },
-    {
-      title: "Museums",
-      description: "Immersive visitor experiences",
-      path: "/contact"
-    },
-    {
-      title: "Healthcare",
-      description: "Medical training and visualization",
-      path: "/contact"
-    }
-  ];
-
-  const companyItems = [
-    {
-      title: "About Us",
-      description: "Our mission and vision",
-      path: "/about"
-    },
-    {
-      title: "Our Impact",
-      description: "500+ schools, 10,000+ students",
-      path: "/about"
-    },
-    {
-      title: "Contact",
-      description: "Get in touch with our team",
-      path: "/contact"
-    },
-    {
-      title: "Support",
-      description: "Help and documentation",
-      path: "/contact"
-    }
-  ];
 
   return (
     <motion.nav
@@ -148,168 +89,58 @@ const Navbar = () => {
             </button>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center justify-center space-x-8">
-            {/* Products Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('products')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg group">
-                <span>Products</span>
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  activeDropdown === 'products' ? "rotate-180" : ""
-                )} />
-              </button>
+          {/* Desktop Navigation and Right Side Actions */}
+          <div className="hidden lg:flex items-center justify-center space-x-10">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.2 + index * 0.05,
+                  ease: "linear"
+                }}
+                className="relative"
+              >
+                <button
+                  onClick={() => handleNavClick(item.path)}
+                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 rounded-lg group ${
+                    location.pathname === item.path
+                      ? 'text-blue-600 dark:text-blue-400'
+                      : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
+                  }`}
+                >
+                  {item.name}
 
-              <AnimatePresence>
-                {activeDropdown === 'products' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "linear" }}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
-                  >
-                    <div className="p-6">
-                      <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-4">HoloInteract Editions</h3>
-                      <div className="space-y-4">
-                        {productItems.map((item, index) => (
-                          <motion.button
-                            key={index}
-                            onClick={() => handleNavClick(item.path)}
-                            whileHover={{ x: 4 }}
-                            transition={{ duration: 0.15, ease: "linear" }}
-                            className="w-full text-left p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
-                          >
-                            <div className="flex justify-between items-start">
-                              <div className="flex-1">
-                                <div className="flex items-center space-x-2 mb-1">
-                                  <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                    {item.title}
-                                  </h4>
-                                  <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full">
-                                    {item.category}
-                                  </span>
-                                </div>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                              </div>
-                              <div className="text-right ml-4">
-                                <div className="text-lg font-semibold text-gray-900 dark:text-white">{item.price}</div>
-                                <div className="text-xs text-gray-500">Starting</div>
-                              </div>
-                            </div>
-                          </motion.button>
-                        ))}
-                      </div>
-                      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <button 
-                          onClick={() => handleNavClick('/products')}
-                          className="w-full text-center py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-                        >
-                          View All Products →
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Solutions Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('solutions')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg group">
-                <span>Solutions</span>
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  activeDropdown === 'solutions' ? "rotate-180" : ""
-                )} />
-              </button>
-
-              <AnimatePresence>
-                {activeDropdown === 'solutions' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "linear" }}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
-                  >
-                    <div className="p-6">
-                      <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-4">Industries We Serve</h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {solutionItems.map((item, index) => (
-                          <motion.button
-                            key={index}
-                            onClick={() => handleNavClick(item.path)}
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.15, ease: "linear" }}
-                            className="p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 text-left group"
-                          >
-                            <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-sm mb-1">
-                              {item.title}
-                            </h4>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
-                          </motion.button>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Company Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setActiveDropdown('company')}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <button className="flex items-center space-x-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 rounded-lg group">
-                <span>Company</span>
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform duration-200",
-                  activeDropdown === 'company' ? "rotate-180" : ""
-                )} />
-              </button>
-
-              <AnimatePresence>
-                {activeDropdown === 'company' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2, ease: "linear" }}
-                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-72 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 overflow-hidden"
-                  >
-                    <div className="p-6">
-                      <div className="space-y-2">
-                        {companyItems.map((item, index) => (
-                          <motion.button
-                            key={index}
-                            onClick={() => handleNavClick(item.path)}
-                            whileHover={{ x: 4 }}
-                            transition={{ duration: 0.15, ease: "linear" }}
-                            className="w-full text-left p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 group"
-                          >
-                            <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-sm mb-1">
-                              {item.title}
-                            </h4>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
-                          </motion.button>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                  {/* Enhanced underline animation */}
+                  {location.pathname === item.path ? (
+                    <motion.div
+                      layoutId="navbar-underline"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                      initial={{ scaleX: 0, opacity: 0 }}
+                      animate={{ scaleX: 1, opacity: 1 }}
+                      transition={{
+                        duration: 0.4,
+                        ease: "linear"
+                      }}
+                    />
+                  ) : (
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-60"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{
+                        scaleX: 1,
+                        transition: {
+                          duration: 0.2,
+                          ease: "linear"
+                        }
+                      }}
+                    />
+                  )}
+                </button>
+              </motion.div>
+            ))}
           </div>
 
           {/* Request Demo Button */}
@@ -333,7 +164,9 @@ const Navbar = () => {
 
           {/* Mobile menu button */}
           <div className="lg:hidden flex items-center space-x-3">
-            <motion.div whileTap={{ scale: 0.95 }}>
+            <motion.div
+              whileTap={{ scale: 0.95 }}
+            >
               <Button
                 variant="ghost"
                 size="sm"
@@ -358,75 +191,63 @@ const Navbar = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "linear" }}
+              transition={{ 
+                duration: 0.3, 
+                ease: "linear"
+              }}
               className="lg:hidden overflow-hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-gray-200/20 dark:border-gray-800/20"
             >
-              <div className="px-4 py-6 space-y-6">
-                {/* Mobile Products */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3 px-4">Products</h3>
-                  <div className="space-y-2">
-                    {productItems.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleNavClick(item.path)}
-                        className="w-full text-left p-4 rounded-xl hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
-                      >
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <h4 className="font-medium text-gray-900 dark:text-white text-sm">{item.title}</h4>
-                            <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
-                          </div>
-                          <span className="text-sm font-semibold text-gray-900 dark:text-white">{item.price}</span>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile Solutions */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3 px-4">Solutions</h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {solutionItems.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleNavClick(item.path)}
-                        className="p-3 rounded-xl hover:bg-white/10 dark:hover:bg-white/5 transition-colors text-left"
-                      >
-                        <h4 className="font-medium text-gray-900 dark:text-white text-sm">{item.title}</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile Company */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3 px-4">Company</h3>
-                  <div className="space-y-2">
-                    {companyItems.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleNavClick(item.path)}
-                        className="w-full text-left p-3 rounded-xl hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
-                      >
-                        <h4 className="font-medium text-gray-900 dark:text-white text-sm">{item.title}</h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">{item.description}</p>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile CTA */}
-                <div className="pt-4 border-t border-gray-200/20 dark:border-gray-800/20">
+              <div className="px-4 py-6 space-y-3">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ 
+                      duration: 0.2, 
+                      delay: index * 0.05,
+                      ease: "linear"
+                    }}
+                    className="relative"
+                  >
+                    <button
+                      onClick={() => handleNavClick(item.path)}
+                      className={`block w-full text-left px-4 py-3 text-base font-medium transition-all duration-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 hover:bg-white/10 dark:hover:bg-white/5 ${
+                        location.pathname === item.path
+                          ? 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20'
+                          : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
+                      }`}
+                    >
+                      {item.name}
+                      {location.pathname === item.path && (
+                        <motion.div
+                          className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: 1 }}
+                          transition={{ 
+                            duration: 0.3,
+                            ease: "linear"
+                          }}
+                        />
+                      )}
+                    </button>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2, delay: 0.2, ease: "linear" }}
+                  className="pt-3"
+                >
                   <Button 
                     className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-medium py-3 rounded-xl transition-all duration-200 hover:shadow-lg border-0"
                     onClick={handleDemoClick}
                   >
                     Request Demo
                   </Button>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
