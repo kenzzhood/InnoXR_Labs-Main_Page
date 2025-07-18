@@ -3,11 +3,24 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "description": "AI-Powered Holographic Technology Website for InnoXR Labs",
+  "keywords": ["react", "typescript", "tailwind", "holographic", "ai", "3d", "framer-motion"],
+  "author": "InnoXR Labs <gtkgoutham@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/yourusername/innoxr-labs-website#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/innoxr-labs-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/innoxr-labs-website/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

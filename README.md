@@ -2,6 +2,11 @@
 
 A modern, responsive website for InnoXR Labs showcasing AI-powered holographic interaction systems. Built with React, TypeScript, Tailwind CSS, and featuring stunning animations and 3D visualizations.
 
+![InnoXR Labs](https://img.shields.io/badge/InnoXR-Labs-blue?style=for-the-badge)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.13-38B2AC?style=for-the-badge&logo=tailwind-css)
+
 ## 🚀 Features
 
 - **Modern Design**: Beautiful, production-ready UI with smooth animations
@@ -22,32 +27,42 @@ A modern, responsive website for InnoXR Labs showcasing AI-powered holographic i
 - **Build Tool**: Vite
 - **Deployment**: Ready for Netlify/Vercel
 
-## 📦 Installation
+## 📦 Quick Start
 
-1. Clone the repository:
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository:**
 ```bash
 git clone https://github.com/yourusername/innoxr-labs-website.git
 cd innoxr-labs-website
 ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 ```bash
 npm install
 ```
 
-3. Start the development server:
+3. **Start the development server:**
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:5173](http://localhost:5173) in your browser.
+4. **Open your browser:**
+Navigate to [http://localhost:5173](http://localhost:5173)
 
-## 🏗️ Build
-
-To build for production:
+## 🏗️ Build for Production
 
 ```bash
+# Build the project
 npm run build
+
+# Preview the build
+npm run preview
 ```
 
 The built files will be in the `dist` directory.
@@ -60,7 +75,8 @@ src/
 │   ├── ui/             # shadcn/ui components
 │   ├── Footer.tsx      # Site footer
 │   ├── Navbar.tsx      # Navigation bar
-│   └── ...
+│   ├── HologramViewer.tsx # 3D hologram displays
+│   └── InteractiveFeatures.tsx # Feature showcase
 ├── pages/              # Page components
 │   ├── Home.tsx        # Landing page
 │   ├── Products.tsx    # Products showcase
@@ -121,6 +137,34 @@ The website is fully responsive with breakpoints for:
 2. Vercel will auto-detect the settings
 3. Deploy!
 
+### GitHub Pages
+1. Go to repository Settings > Pages
+2. Select "Deploy from a branch"
+3. Choose "main" branch and "/ (root)" folder
+4. Your site will be available at: `https://yourusername.github.io/innoxr-labs-website`
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🎯 Performance Features
+
+- **Optimized Images**: Proper image optimization and lazy loading
+- **Code Splitting**: Automatic code splitting with Vite
+- **Tree Shaking**: Unused code elimination
+- **Minification**: CSS and JS minification
+- **Caching**: Proper browser caching headers
+
+## 🌐 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -146,3 +190,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Framer Motion](https://www.framer.com/motion/) for smooth animations
 - [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) for 3D graphics
 - [Tailwind CSS](https://tailwindcss.com/) for styling
+
+---
+
+**Built with ❤️ by InnoXR Labs**
